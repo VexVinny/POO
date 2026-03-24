@@ -1,4 +1,4 @@
-package POO;
+package POO.Atividades;
 
 import java.util.Locale;
 

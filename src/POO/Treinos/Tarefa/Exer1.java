@@ -1,8 +1,8 @@
-package POO.Treinos;
+package POO.Treinos.Tarefa;
 
 import java.util.Scanner;
 
-public class Senha {
+public class Exer1 {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         int senha, chave = 2002;

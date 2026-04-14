@@ -1,5 +1,5 @@
 public static void main(String[] args) {
-    int mask = 0b1000000;
+    int mask = 0b100000;
     int x = 65;
     int y = 5;
 

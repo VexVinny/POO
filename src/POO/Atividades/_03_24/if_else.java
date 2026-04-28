@@ -1,4 +1,4 @@
-package POO.Atividades._24_03;
+package POO.Atividades._03_24;
 
 import  java.util.Scanner;
 

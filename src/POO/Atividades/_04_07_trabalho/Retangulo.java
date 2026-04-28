@@ -1,6 +1,6 @@
-package POO.Atividades.Trabalho_07_04;
+package POO.Atividades._04_07_trabalho;
 
-public class Retangulo{
+public class Retangulo {
     private double Height;
     private double Width;
 

@@ -1,4 +1,4 @@
-package POO.Atividades._31_03;
+package POO.Atividades._03_31;
 
 import java.util.Scanner;
 public class EX_2 {

@@ -1,9 +1,11 @@
-package POO.Atividades._05_19;
+package POO.Atividades._05_19_tarefa;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 
 class Product {
-
     String name;
     double price;
 
@@ -14,7 +16,6 @@ class Product {
 }
 
 class OrderItem {
-
     int quantity;
     double price;
     Product product;
@@ -24,7 +25,6 @@ class OrderItem {
         this.price = price;
         this.product = product;
     }
-
     double subTotal() {
         return quantity * price;
     }
@@ -32,14 +32,14 @@ class OrderItem {
 
 class Order {
 
-    String moment;
-    String status;
+    Date moment;
+    OrderStatus status;
     Client client;
 
     OrderItem[] items = new OrderItem[100];
     int cont = 0;
 
-    public Order(String moment, String status, Client client) {
+    public Order(Date moment, OrderStatus status, Client client) {
         this.moment = moment;
         this.status = status;
         this.client = client;
@@ -51,13 +51,10 @@ class Order {
     }
 
     double total() {
-
         double soma = 0;
-
         for (int i = 0; i < cont; i++) {
             soma += items[i].subTotal();
         }
-
         return soma;
     }
 }
@@ -65,72 +62,63 @@ class Order {
 public class Programa {
 
     public static void main(String[] args) {
-
+        Locale.setDefault(Locale.US);
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter client data:");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-        System.out.print("Name: ");
+        System.out.println("Digite os dados do cliente:");
+
+        System.out.print("Nome: ");
         String name = sc.nextLine();
 
         System.out.print("Email: ");
         String email = sc.nextLine();
 
-        System.out.print("Birth date (DD/MM/YYYY): ");
+        System.out.print("Data de nascimento (DD/MM/AAAA): ");
         String birthDate = sc.nextLine();
 
         Client client = new Client(name, email, birthDate);
 
-        System.out.println("\nEnter order data:");
+        System.out.println("\nDigite os dados do pedido:");
 
         System.out.print("Status: ");
-        String status = sc.nextLine();
+        OrderStatus status = OrderStatus.valueOf(sc.nextLine());
 
-        System.out.print("Moment: ");
-        String moment = sc.nextLine();
+        Order order = new Order(new Date(), status, client);
 
-        Order order = new Order(moment, status, client);
-
-        System.out.print("How many items to this order? ");
+        System.out.print("Quantos itens tem o pedido? ");
         int n = sc.nextInt();
-
         sc.nextLine();
 
         for (int i = 0; i < n; i++) {
 
-            System.out.printf("\nEnter #%d item data:\n", i + 1);
+            System.out.printf("\nDigite os dados do item #%d:\n", i + 1);
 
-            System.out.print("POO.Atividades._05_19.Product name: ");
+            System.out.print("Nome do produto: ");
             String productName = sc.nextLine();
 
-            System.out.print("POO.Atividades._05_19.Product price: ");
+            System.out.print("Preco do produto: ");
             double productPrice = sc.nextDouble();
 
-            System.out.print("Quantity: ");
+            System.out.print("Quantidade: ");
             int quantity = sc.nextInt();
 
             sc.nextLine();
 
             Product product = new Product(productName, productPrice);
-
             OrderItem item = new OrderItem(quantity, productPrice, product);
 
             order.addItem(item);
         }
+        System.out.println("\nRESUMO DO PEDIDO:");
 
-        System.out.println("\nORDER SUMMARY:");
+        System.out.println("Momento do pedido: " + sdf.format(order.moment));
+        System.out.println("Status do pedido: " + order.status);
 
-        System.out.println("POO.Atividades._05_19.Order moment: " + order.moment);
-        System.out.println("POO.Atividades._05_19.Order status: " + order.status);
+        System.out.println("Cliente: " + order.client.name + " (" + order.client.birthDate + ") - " + order.client.email);
 
-        System.out.println("POO.Atividades._05_19.Client: "
-                + order.client.name
-                + " ("
-                + order.client.birthDate
-                + ") - "
-                + order.client.email);
-
-        System.out.println("\nPOO.Atividades._05_19.Order items:");
+        System.out.println("Itens do pedido:");
 
         for (int i = 0; i < order.cont; i++) {
 
@@ -138,15 +126,12 @@ public class Programa {
                     order.items[i].product.name
                             + ", $"
                             + String.format("%.2f", order.items[i].price)
-                            + ", Quantity: "
+                            + ", Quantidade: "
                             + order.items[i].quantity
                             + ", Subtotal: $"
                             + String.format("%.2f", order.items[i].subTotal())
             );
         }
-
-        System.out.printf("\nTotal price: $%.2f\n", order.total());
-
-        sc.close();
+        System.out.printf("\nPreco total: $%.2f\n", order.total());
     }
 }

@@ -20,7 +20,7 @@ public class Exer2 {
 
         funcionario F = new funcionario(nome, sal_bruto, tax);
 
-        System.out.printf("\n Funcionario:" + F);
+        System.out.printf("\n POO.Atividades.Prova.Fatura.Funcionario:" + F);
 
         System.out.print("Qual a porcentagem de aumento do salario: ");
         double per = sc.nextDouble();
